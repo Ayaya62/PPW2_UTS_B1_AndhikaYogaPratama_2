@@ -6,15 +6,18 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Product;
 
-class Controller extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index() : View
     {
-        return view('index', [
+        $products = Product::all();
+        
+        return view('products.index', [
             'products' => Product::latest()->paginate(3)
         ]);
     }
@@ -70,7 +73,7 @@ class Controller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product) : RedirectResponse
+    public function destroy($id) : RedirectResponse
     {
         $product->delete();
         return redirect()->route('index')
