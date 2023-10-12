@@ -46,7 +46,7 @@ class ProductController extends Controller
     public function show(Product $product) : View
     {
         return view('products.show', [
-            'product' => $products
+            'product' => $product
         ]);
     }
 
@@ -75,7 +75,7 @@ class ProductController extends Controller
      */
     public function destroy($id) : RedirectResponse
     {
-        $product->delete();
+        $id->delete();
         return redirect()->route('index')
                 ->withSuccess('Product is deleted successfully.');
     }
